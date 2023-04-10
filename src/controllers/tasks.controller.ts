@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { connection } from "../config/database.js";
 import tasksService from "../services/tasks.service.js";
 import { Task } from "../protocols/tasks.protocols.js";
 
@@ -22,5 +21,26 @@ export async function createTask(req: Request, res: Response, next: NextFunction
     } catch (err) {
         return next(err);
     }
-    
+}
+
+export async function updateStatusByID(req: Request, res: Response, next: NextFunction) {
+    const id: number = +req.params.id;
+
+    try {
+        await tasksService.edit(id);
+        return res.sendStatus(201)
+    } catch (err) {
+        return next(err);
+    }
+}
+
+export async function deleteOneByID(req: Request, res: Response, next: NextFunction) {
+    const id: number = +req.params.id;
+
+    try {
+        await tasksService.deleteOne( id );
+        return res.sendStatus(201)
+    } catch (err) {
+        return next(err);
+    }
 }
