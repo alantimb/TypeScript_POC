@@ -7,8 +7,13 @@ async function findAll(): Promise<Task[]> {
     return tasks
 }
 
+async function create(newTask: Task) {
+    return await tasksRepository.create(newTask)
+}
+
 const tasksService = {
-    findAll
+    findAll,
+    create
 }
 
 export default tasksService;
